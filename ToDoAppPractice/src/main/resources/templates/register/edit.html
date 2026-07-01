@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<title>更新</title>
+</head>
+<body>
+	<div class="container text-center mt-5" style="max-width: 600px;">
+		<h1 class="text-center mb-4">更新画面</h1>
+		<form action="/todo/update" method="post">
+			<div>
+				<input type="hidden" name="taskId" th:value="${todo.taskId}">
+			</div>
+			
+			<div class="row mb-3">
+				<label class="col-sm-3 col-form-label">タスク名</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="taskName" th:value="${todo.taskName}">
+				</div>	
+			</div>
+			
+			<br>
+			
+			<div class="row mb-3">
+				<label class="col-sm-3 col-form-label">詳細</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="detail" th:value="${todo.detail}">
+				</div>
+			</div>
+			
+			<br>
+			
+			<div class="row mb-3">
+				<label class="col-sm-3 col-form-label">優先度</label>
+				<div class="col-sm-9">
+					<select class="form-select" name="priority">
+						<option value="高" th:selected="${todo.priority == '高'}">高</option>
+						<option value="中" th:selected="${todo.priority == '中'}">中</option>
+						<option value="低" th:selected="${todo.priority == '低'}">低</option>
+					</select>
+				</div>
+			</div>
+			
+			<br>
+			
+			<div class="row mb-4">
+				<label class="col-sm-3 col-form-label">ステータス</label>
+				<div class="col-sm-9">	
+					<select class="form-select" name="todoStatus">
+						<option value="未着手" th:selected="${todo.todoStatus == '未着手'}">未着手</option>
+						<option value="進行中" th:selected="${todo.todoStatus == '進行中'}">進行中</option>
+						<option value="完了" th:selected="${todo.todoStatus == '完了'}">完了</option>
+					</select>
+				</div>
+			</div>
+			
+			<br>
+			
+			<div class="d-flex justify-content-center gap-3">
+				<button type="submit" class="btn btn-primary">更新</button>
+				<a href="/todo" class="btn btn-secondary">戻る</a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

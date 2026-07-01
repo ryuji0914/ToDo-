@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,inicial-scale=1">
+
+<link rel="stylesheet" th:href="@{/css/HomePage.css}">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+<title>ToDoアプリ</title>
+</head>
+<body>
+	<div class="container text-center mt-5">
+		<h1>ToDoアプリ</h1>
+		<form method="get" action="/register">
+			<input type="submit" value="新規登録">
+		</form>
+		<br>
+		<div th:if="${!#lists.isEmpty(todoList)}">
+			<table class="table table-bordered mx-auto w-auto">
+				<tr>
+					<th>タスク名</th>
+					<th>詳細</th>
+					<th>優先度</th>
+					<th>ステータス</th>
+					<th>作成日</th>
+					<th>更新日</th>
+					<th>操作</th>
+				</tr>
+				
+				<tr th:each="todo : ${todoList}">
+					<td th:text="${todo.taskName}"></td>
+					<td th:text="${todo.detail}"></td>
+					<td th:text="${todo.priority}"></td>
+					<td th:text="${todo.todoStatus}"></td>
+					<td th:text="${#temporals.format(todo.createdAt,'yyyy/MM/dd HH:mm')}"></td>
+					<td th:text="${#temporals.format(todo.updatedAt,'yyyy/MM/dd HH:mm')}"></td>
+					
+					<td>
+						<a th:href="@{'/todo/edit/' + ${todo.taskId}}" class="btn btn-secondary btn-sm">編集</a>
+						
+						<form th:action="@{'/todo/delete/'} + ${todo.taskId}" method="post" style="display:inline;">
+							<button type="submit" class="btn btn-secondary btn-sm" onclick="return confirm('削除しますか?')">削除</button>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
